@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/AnalyticsPage.css";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE =  process.env.REACT_APP_API_BASE || "http://localhost:4000";
 
 export default function AnalyticsPage({ inline = false, code: propCode }) {
   // if inline, use the passed-in prop; otherwise grab from URL

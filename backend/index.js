@@ -7,8 +7,20 @@ const cors = require('cors')
 const rateLimiter = require('express-rate-limit')
 const app = express();
 
-app.use(cors())
-app.use(express.static(path.join(__dirname, 'public')));
+// only allow your frontend origin
+const allowedOrigins = [
+  process.env.CORS_ORIGIN || "http://localhost:5500"
+];
+
+app.use(cors({
+  origin: (origin, cb) =>
+    // allow requests with no origin (e.g. mobile tools, cURL)
+    !origin || allowedOrigins.includes(origin)
+      ? cb(null, true)
+      : cb(new Error("Not allowed by CORS")),
+  credentials: true
+}));
+
 const urlController = require("./urlController");
 const {
   validateCreateUrl,
@@ -39,7 +51,7 @@ const connectDB = async () => {
   }
 };
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 const main = async () => {
   try {
