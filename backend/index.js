@@ -7,19 +7,25 @@ const cors = require('cors')
 const rateLimiter = require('express-rate-limit')
 const app = express();
 
-// only allow your frontend origin
-const allowedOrigins = [
-  process.env.CORS_ORIGIN
-];
+const FRONTEND_ORIGINS = [
+  process.env.CORS_ORIGIN,   
+  process.env.URL,           
+  'http://localhost:3000'    ]
 
-app.use(cors({
-  origin: (origin, cb) =>
-    // allow requests with no origin (e.g. mobile tools, cURL)
-    !origin || allowedOrigins.includes(origin)
-      ? cb(null, true)
-      : cb(new Error("Not allowed by CORS")),
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // allow requests with no origin (e.g. mobile apps, curl)
+      if (!origin) return callback(null, true);
+      if (FRONTEND_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
 
 const urlController = require("./urlController");
 const {
@@ -35,10 +41,7 @@ const createLimiter = rateLimiter({
   max: 10,             // max 10 creates per IP
   message: "Too many links created, please try again later."
 });
-
-app.use(createLimiter)
-
-app.post("/api/create",validateCreateUrl, urlController.urlCreate);
+app.post("/api/create",createLimiter,validateCreateUrl, urlController.urlCreate);
 app.get('/api/:url',validateShortUrlParam, urlController.urlRedirect);
 app.get('/api/analytics/:url',validateShortUrlParam, urlController.urlAnalytics);
 
