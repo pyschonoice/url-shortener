@@ -1,53 +1,53 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const helmet = require('helmet')
-const path = require('path');
-const cors = require('cors')
-const rateLimiter = require('express-rate-limit')
+const helmet = require("helmet");
+const path = require("path");
+const cors = require("cors");
+const rateLimiter = require("express-rate-limit");
 const app = express();
 
 const FRONTEND_ORIGINS = [
-  process.env.CORS_ORIGIN,   
-  process.env.URL,           
-  'http://localhost:4000'    ]
+  process.env.CORS_ORIGIN,
+  process.env.URL,
+  "http://localhost:4000",
+  "https://shawty-beta.vercel.app",
+].filter(Boolean);
 
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       // allow requests with no origin (e.g. mobile apps, curl)
-//       if (!origin) return callback(null, true);
-//       if (FRONTEND_ORIGINS.includes(origin)) {
-//         return callback(null, true);
-//       }
-//       callback(new Error(`Origin ${origin} not allowed by CORS`));
-//     },
-//     credentials: true,
-//     optionsSuccessStatus: 200,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin: FRONTEND_ORIGINS,
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
+
 const urlController = require("./urlController");
-const {
-  validateCreateUrl,
-  validateShortUrlParam,
-} = require("./validator");
-
+const { validateCreateUrl, validateShortUrlParam } = require("./validator");
 
 app.use(helmet());
 app.use(express.json());
 const createLimiter = rateLimiter({
-  windowMs: 60*1000,   // 1 min
-  max: 10,             // max 10 creates per IP
-  message: "Too many links created, please try again later."
+  windowMs: 60 * 1000, // 1 min
+  max: 10, // max 10 creates per IP
+  message: "Too many links created, please try again later.",
 });
 app.get("/", (req, res) => {
   res.send("🦔️ Shawty-URL-backend running!");
 });
 
-app.post("/api/create",createLimiter,validateCreateUrl, urlController.urlCreate);
-app.get('/api/:url',validateShortUrlParam, urlController.urlRedirect);
-app.get('/api/analytics/:url',validateShortUrlParam, urlController.urlAnalytics);
+app.post(
+  "/api/create",
+  createLimiter,
+  validateCreateUrl,
+  urlController.urlCreate
+);
+app.get("/api/:url", validateShortUrlParam, urlController.urlRedirect);
+app.get(
+  "/api/analytics/:url",
+  validateShortUrlParam,
+  urlController.urlAnalytics
+);
 
 const connectDB = async () => {
   try {
