@@ -1,6 +1,6 @@
     const crypto = require("crypto");
     const { z } = require("zod");
-    const storeModel = require("./db");
+    const storeModel = require("../db");
     const URL = process.env.URL;
 
 

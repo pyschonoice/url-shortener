@@ -1,11 +1,10 @@
 {
   "name": "url-shortner",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+     "start": "node api/index.js",
+    "dev": "nodemon api/index.js"
   },
   "author": "pyschonoice",
   "license": "ISC",
@@ -18,7 +17,9 @@
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
     "mongoose": "^8.15.1",
-    "nodemon": "^3.1.10",
     "zod": "^3.25.30"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
