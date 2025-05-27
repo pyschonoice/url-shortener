@@ -15,7 +15,7 @@ export default function AnalyticsPage({ inline = false, code: propCode }) {
 
   const fetchClicks = async () => {
     try {
-      const res = await fetch(`${API_BASE}api/analytics/${code}`);
+      const res = await fetch(`${API_BASE}/api/analytics/${code}`);
       const { clicks } = await res.json();
       setClicks(clicks);
     } catch {
