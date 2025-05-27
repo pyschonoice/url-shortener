@@ -51,17 +51,22 @@ const connectDB = async () => {
   }
 };
 
-const port = process.env.PORT || 4000;
+// const port = process.env.PORT || 4000;
 
-const main = async () => {
-  try {
-    await connectDB();
-    app.listen(port, () => {
-      console.log(`Listening at port ${port}`);
-    });
-  } catch (err) {
-    console.log(`Errors while loading the server`);
-  }
-};
+// const main = async () => {
+//   try {
+//     await connectDB();
+//     app.listen(port, () => {
+//       console.log(`Listening at port ${port}`);
+//     });
+//   } catch (err) {
+//     console.log(`Errors while loading the server`);
+//   }
+// };
 
-main();
+// main();
+
+connectDB();
+
+// export for Vercel serverless function
+module.exports = app;
