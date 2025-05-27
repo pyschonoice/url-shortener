@@ -38,9 +38,9 @@ const createLimiter = rateLimiter({
 
 app.use(createLimiter)
 
-app.post("api/create",validateCreateUrl, urlController.urlCreate);
-app.get('api/:url',validateShortUrlParam, urlController.urlRedirect);
-app.get('api/analytics/:url',validateShortUrlParam, urlController.urlAnalytics);
+app.post("/api/create",validateCreateUrl, urlController.urlCreate);
+app.get('/api/:url',validateShortUrlParam, urlController.urlRedirect);
+app.get('/api/analytics/:url',validateShortUrlParam, urlController.urlAnalytics);
 
 const connectDB = async () => {
   try {
