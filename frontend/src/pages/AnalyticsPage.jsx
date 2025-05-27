@@ -15,7 +15,7 @@ export default function AnalyticsPage({ inline = false, code: propCode }) {
 
   const fetchClicks = async () => {
     try {
-      const res = await fetch(`${API_BASE}/analytics/${code}`);
+      const res = await fetch(`${API_BASE}/api/analytics/${code}`);
       const { clicks } = await res.json();
       setClicks(clicks);
     } catch {
@@ -29,8 +29,8 @@ export default function AnalyticsPage({ inline = false, code: propCode }) {
 
   const showInfo = () =>
     alert(
-      "You can see analytics anytime by typing /analytics between the url and the urlCode\n" +
-        "for example shaw.ty/analytics/yourUrlCode"
+      "You can see analytics anytime by typing /api/analytics between the url and the urlCode\n" +
+        "for example shaw.ty/api/analytics/yourUrlCode"
     );
 
   return (

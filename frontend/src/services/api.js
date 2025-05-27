@@ -1,7 +1,7 @@
 const API_BASE =  import.meta.env.VITE_APP_API_BASE || "http://localhost:4000";
 
 export async function createShortUrl(orgUrl, expiresIn) {
-  const res = await fetch(`${API_BASE}/create`, {
+  const res = await fetch(`${API_BASE}/api/create`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ orgUrl, expiresIn })
@@ -12,7 +12,7 @@ export async function createShortUrl(orgUrl, expiresIn) {
 
 export async function getClickCount(shortUrl) {
   const slug = shortUrl.split('/').pop();
-  const res  = await fetch(`${API_BASE}/analytics/${slug}`);
+  const res  = await fetch(`${API_BASE}/api/analytics/${slug}`);
   const { clicks } = await res.json();
   return clicks;
 }
