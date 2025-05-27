@@ -41,6 +41,10 @@ const createLimiter = rateLimiter({
   max: 10,             // max 10 creates per IP
   message: "Too many links created, please try again later."
 });
+app.get("/", (req, res) => {
+  res.send("🦔️ Shawty-URL-backend running!");
+});
+
 app.post("/api/create",createLimiter,validateCreateUrl, urlController.urlCreate);
 app.get('/api/:url',validateShortUrlParam, urlController.urlRedirect);
 app.get('/api/analytics/:url',validateShortUrlParam, urlController.urlAnalytics);
