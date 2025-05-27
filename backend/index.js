@@ -9,7 +9,7 @@ const app = express();
 
 // only allow your frontend origin
 const allowedOrigins = [
-  process.env.CORS_ORIGIN || "http://localhost:5500"
+  process.env.CORS_ORIGIN || "http://localhost:4000"
 ];
 
 app.use(cors({
