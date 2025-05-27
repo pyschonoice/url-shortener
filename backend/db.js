@@ -1,0 +1,40 @@
+const mongoose = require('mongoose')
+const {Schema, model } = mongoose
+
+const storeSchema = new Schema({
+    longUrl : {type: String, required:true,trim:true},
+    shortUrl : {type: String, required:true, unique: true},
+   createdAt: {
+    type: Date,
+    default : Date.now
+   },
+    expiresIn :{
+        type: Number, // store in hours 
+        default: 24,
+        min : 1,
+        max : 720 // 30 days
+    },
+    expireAt :{
+        type: Date,
+        index : { expires : 0}
+    },
+    clicks:{
+        type: Number,
+        default:0,
+    },
+    isActive:{
+        type:Boolean,
+        default: true
+    }
+
+})
+
+// Automatically set expireAt before saving
+storeSchema.pre('save', function (next) {
+  if (this.expiresIn) {
+    this.expireAt = new Date(Date.now() + this.expiresIn * 3600 * 1000);
+  }
+  next();
+});
+
+module.exports = model("Store",storeSchema)

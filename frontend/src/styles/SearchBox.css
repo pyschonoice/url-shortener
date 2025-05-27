@@ -1,0 +1,213 @@
+/* src/styles/SearchBox.css */
+:root {
+  --bg-input:        #1a1a1d;
+  --border-input:    #232327;
+  --text-input:      #e4e4e7;
+  --placeholder:     #71717a;
+  --focus-ring:      #089e30;
+  --button-bg:       #089e30;
+  --button-hover:    #2cde7f;
+  --button-text:     #ffffff;
+  --border-accordion:#333;
+  --text-color:      #ffffff;
+}
+
+/* ——— Container & Title ——— */
+.search-box {
+  max-width: 32rem;
+  width: 90%;
+  margin: 2rem auto;
+  font-family: system-ui, sans-serif;
+  padding: 0 1rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #12b93f;
+  margin-bottom: 0.5rem;
+}
+.subtitle {
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+/* ——— Input group ——— */
+.input-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.input-group .shadcn-input {
+  flex: 1 1 auto;
+  max-width: 30rem;
+}
+
+/* ——— Shadcn‐style input ——— */
+.shadcn-input {
+  height: 2.25rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-input);
+  background: var(--bg-input);
+  padding: 0 0.75rem;
+  font-size: 1rem;
+  color: var(--text-input);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s;
+}
+
+.shadcn-input::placeholder {
+  color: var(--placeholder);
+}
+
+.shadcn-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+/* ——— Button ——— */
+.shadcn-button {
+  height: 2.25rem;
+  padding: 0 1rem;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+.shadcn-button:hover {
+  background: var(--button-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+/* ——— Accordions ——— */
+.accordion {
+  margin: 1rem 0;
+  border-bottom: 1px solid var(--border-accordion);
+}
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+.expiry-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.expiry-label {
+  font-weight: bold;
+}
+.icon {
+  transition: transform 0.2s;
+}
+.icon.open {
+  transform: rotate(90deg);
+}
+
+/* ——— Accordion panel ——— */
+.accordion-panel {
+  padding: 0.5rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ——— Slider group ——— */
+.slider-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 30rem;
+}
+.range-label {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.slider {
+  -webkit-appearance: none;
+  flex: 1;
+  height: 0.75rem;
+  border-radius: 0.375rem;
+  background: var(--border-input);
+  outline: none;
+  accent-color: var(--focus-ring);
+}
+
+/* ——— Clicks card ——— */
+.clicks-card {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  border: 1px solid var(--border-accordion);
+  border-radius: 8px;
+  background: var(--bg-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.clicks-count {
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+/* ——— Panel Actions ——— */
+.panel-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 200px;
+  gap: 0.5rem;
+  margin-top: 10px;
+}
+
+/* ——— Another Url button ——— */
+.another-btn {
+  display: block;
+  margin: 1.5rem auto 0;
+  background-color: #003b10;
+  width: 100%;
+  max-width: 12rem;
+}
+
+/* ——— Responsive (mobile) ——— */
+@media (max-width: 640px) {
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .shadcn-button,
+  .another-btn {
+    width: 100%;
+  }
+  .slider-group {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+  .range-label {
+    font-size: 0.8rem;
+  }
+  .clicks-card {
+    height: auto;
+    padding: 1rem;
+  }
+  .panel-actions {
+    margin-top: 10px;
+    flex-direction: column;
+    width: 100%;
+  }
+}

@@ -1,0 +1,30 @@
+:root {
+  /* only your global font / color settings here */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255,255,255,0.87);
+  background-color: #090909;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* center the entire #root element in viewport */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+/* constrain your app to ~300px wide */
+#root {
+  width: 700px;
+  max-width: 90%;    /* in case someone’s on a very narrow device */
+}
+r
