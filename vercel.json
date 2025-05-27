@@ -12,9 +12,7 @@
     }
   ],
   "routes": [
-    // proxy any /api/* to your Express handler
     { "src": "/(.*)", "dest": "backend/index.js" },
-    // everything else → your frontend
     { "src": "/(.*)",       "dest": "frontend/$1" }
   ]
 }
