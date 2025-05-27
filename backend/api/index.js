@@ -10,23 +10,23 @@ const app = express();
 const FRONTEND_ORIGINS = [
   process.env.CORS_ORIGIN,   
   process.env.URL,           
-  'http://localhost:3000'    ]
+  'http://localhost:4000'    ]
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // allow requests with no origin (e.g. mobile apps, curl)
-      if (!origin) return callback(null, true);
-      if (FRONTEND_ORIGINS.includes(origin)) {
-        return callback(null, true);
-      }
-      callback(new Error(`Origin ${origin} not allowed by CORS`));
-    },
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
-
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       // allow requests with no origin (e.g. mobile apps, curl)
+//       if (!origin) return callback(null, true);
+//       if (FRONTEND_ORIGINS.includes(origin)) {
+//         return callback(null, true);
+//       }
+//       callback(new Error(`Origin ${origin} not allowed by CORS`));
+//     },
+//     credentials: true,
+//     optionsSuccessStatus: 200,
+//   })
+// );
+app.use(cors());
 const urlController = require("./urlController");
 const {
   validateCreateUrl,
