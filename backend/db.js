@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const {Schema, model } = mongoose
 
 const storeSchema = new Schema({
+    userId : {type: Schema.Types.ObjectId,ref:"User"},
     longUrl : {type: String, required:true,trim:true},
     shortUrl : {type: String, required:true, unique: true},
    createdAt: {
@@ -37,4 +38,15 @@ storeSchema.pre('save', function (next) {
   next();
 });
 
-module.exports = model("Store",storeSchema)
+const userSchema = new Schema({
+    email : {type:String, required:true,unique:true},
+    passwordHash :{type:String,required:true}
+})
+
+const userModel = model("User",userSchema)
+
+const storeModel = model("Store",storeSchema)
+module.exports = {
+    storeModel,
+    userModel
+}

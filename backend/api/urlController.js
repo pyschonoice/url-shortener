@@ -1,6 +1,6 @@
     const crypto = require("crypto");
     const { z } = require("zod");
-    const storeModel = require("../db");
+    const {storeModel} = require("../db");
     const URL = process.env.URL;
 
 
@@ -20,6 +20,8 @@
 
     async function urlCreate(req, res) {
     try {
+        let userId;
+        if(req.userId) userId  = req.userId;
         const { orgUrl , expiresIn , isActive} = req.body
         if (!orgUrl) return res.status(400).json({ message: "No url found." });
 
@@ -39,6 +41,7 @@
         shortUrl,
         expiresIn : expiresIn,
         isActive: isActive,
+        userId
         });
         const storedData = await storedDoc.save();
         res

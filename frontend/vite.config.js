@@ -11,6 +11,12 @@ export default defineConfig({
     hmr: {
       host: '172.25.154.96',
       protocol: 'ws',
+    },
+    proxy: {
+      '/api': {
+        target: process.env.VITE_APP_API_BASE,
+        changeOrigin: true
+      }
     }
-  }
+    }
 })

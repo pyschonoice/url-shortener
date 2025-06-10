@@ -23,6 +23,9 @@ app.use(
 );
 
 const urlController = require("./urlController");
+const userController = require("./userController");
+
+const authMiddleware = userController.authMiddleware;
 const { validateCreateUrl, validateShortUrlParam } = require("./validator");
 
 app.use(helmet());
@@ -32,9 +35,12 @@ const createLimiter = rateLimiter({
   max: 10, // max 10 creates per IP
   message: "Too many links created, please try again later.",
 });
+
 app.get("/", (req, res) => {
   res.send("🦔️ Shawty-URL-backend running!");
 });
+app.post("/api/register",userController.signup)
+app.post("/api/login",userController.signin)
 
 app.post(
   "/api/create",
@@ -42,12 +48,24 @@ app.post(
   validateCreateUrl,
   urlController.urlCreate
 );
+
+app.post(
+  "/api/create/user",
+  authMiddleware,
+  createLimiter,
+  validateCreateUrl,
+  urlController.urlCreate
+);
+
 app.get("/api/:url", validateShortUrlParam, urlController.urlRedirect);
 app.get(
   "/api/analytics/:url",
+  authMiddleware,
   validateShortUrlParam,
   urlController.urlAnalytics
 );
+
+app.get("/api/user/getAll",authMiddleware,createLimiter,userController.userLinks)
 
 const connectDB = async () => {
   try {
@@ -58,22 +76,22 @@ const connectDB = async () => {
   }
 };
 
-// const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
-// const main = async () => {
-//   try {
-//     await connectDB();
-//     app.listen(port, () => {
-//       console.log(`Listening at port ${port}`);
-//     });
-//   } catch (err) {
-//     console.log(`Errors while loading the server`);
-//   }
-// };
+const main = async () => {
+  try {
+    await connectDB();
+    app.listen(port, () => { 
+      console.log(`Listening at port ${port}`);
+    });
+  } catch (err) {
+    console.log(`Errors while loading the server`);
+  }
+};
 
-// main();
+main();
 
-connectDB();
+// connectDB();
 
-// export for Vercel serverless function
-module.exports = app;
+// // export for Vercel serverless function
+// module.exports = app;

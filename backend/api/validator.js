@@ -7,7 +7,6 @@ const createUrlSchema = z.object({
   orgUrl: z
     .string()
     .trim()
-    .regex(/^https?:\/\//, "URL must start with http:// or https://")
     .url("Must be a valid URL")
     .max(2048),
   expiresIn: z.number().int().min(1).max(720).optional(),
