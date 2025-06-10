@@ -13,7 +13,7 @@ export default defineConfig({
       protocol: 'ws',
     },
     proxy: {
-      '/api': {
+      '/': {
         target: process.env.VITE_APP_API_BASE,
         changeOrigin: true
       }
